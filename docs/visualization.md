@@ -116,9 +116,6 @@ OPACITY=0.1 AXIS=z npm run xray_vol_data
 
 Future work: we should extend this to accept other CT file formats.
 
-## xray_layer_data
-
-// TODO: make this work.
 
 ## flythrough_animation
 
@@ -129,6 +126,8 @@ This Python3 script creates a flythrough animation (.mp4) of the volumetric data
 ```sh
 npm run flythrough_animation
 ```
+
+**Currently we have all info hardcoded in this python file, but we will be fixing this very soon to the following:**
 
 Available command line options:
 

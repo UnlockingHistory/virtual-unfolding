@@ -31,9 +31,7 @@ console.log(JSON.stringify({
 }, null, 2))
 
 segmentation(fileParams, segmentationParams);
-// flattening(fileParams, flatteningParams);
-// texturing(fileParams, texturingParams);
+flattening(fileParams, flatteningParams);
+texturing(fileParams, texturingParams);
 
 console.log("finished");
-
-// invert()
