@@ -30,5 +30,16 @@ Then it will create a folder at `output/FILENAME` and create the following files
 - `FILENAME_indices.tom` and `FILENAME_indices_FLAGGED.tom` -  Finally we store the 1D index of each point in `FILENAME_points3DList.bin` and `FILENAME_points3DList_FLAGGED.bin` in a volumetric array.  Stored as int32 with a null value indicating no point present in current voxel.
 
 ### Flattening
+
+- `FILENAME_points2DList.bin` - This is an array of 2D vectors giving the 2D positions of the points in `FILENAME_points3DList.bin` in the flat state.  Points that were not able to be mapped to 2D at this stage are set to null.
+- `FILENAME_iterMappedList.bin` - This array contains the iteration number that the points were mapped to 2D.
+
 ### Propagation
+
+This has not been refactored yet.
+
 ### Texturing
+
+- `FILENAME_MeshXX.bmp` - An image of the flattened letter with the XMT mapped to 2D.  We generate a separate image for each connected component identified by virtual unfolding.
+- `FILENAME_CP_MeshXX.bmp` - An image of the crease pattern of the flattened letter.  We generate a separate image for each connected component identified by virtual unfolding.
+- `FILENAME_CP_inv_MeshXX.bmp` - An image of the crease pattern of the flattened letter with the red/blue colors reversed.  We generate a separate image for each connected component identified by virtual unfolding.

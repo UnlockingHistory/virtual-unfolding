@@ -33,7 +33,6 @@ export default function run(fileParams: FileParams, texturingParams: TexturingPa
 		// 	textureMap.saveGreyscaleTexture(fileParams.OUTPUT_PATH, fileParams.FILENAME, texturingParams, currentMeshNum, true, bounds[currentMeshNum]);
 		// }
 
-		// textureMap.saveTriangleMesh(fileParams, texturingParams, currentMeshNum, bounds[currentMeshNum]);
         console.log(`\tMesh ${currentMeshNum} textures saved.\n`);
 	}
 
