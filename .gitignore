@@ -1,0 +1,8 @@
+.DS_Store
+data
+node_modules
+spec/data/temp
+output/*
+.vscode
+batch.sh
+getresults.sh

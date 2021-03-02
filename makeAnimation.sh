@@ -1,0 +1,1 @@
+ffmpeg -i output/DB-1538_58x58x58/mappingFrames/DB-1538_58x58x58_frame%d_Mesh0_0_offset.bmp output/DB-1538_58x58x58/mapping_animation.avi

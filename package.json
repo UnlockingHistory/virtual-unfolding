@@ -1,0 +1,59 @@
+{
+  "name": "locked-letters",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/UnlockingHistory/virtual-unfolding",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UnlockingHistory/virtual-unfolding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/UnlockingHistory/virtual-unfolding/issues",
+    "email": ""
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-ts \"test/**/*.spec.ts\"",
+    "start": "NODE_OPTIONS='--max-old-space-size=4096' VERBOSE=true ts-node src/index.ts",
+    "xray_vol_data": "NODE_OPTIONS='--max-old-space-size=4096' VERBOSE=true ts-node src/visualization/XrayVolumetricData.ts",
+    "flythrough_animation": "python src/visualization/FlythroughAnimation.py",
+    "tom_to_raw": "NODE_OPTIONS='--max-old-space-size=4096' VERBOSE=true ts-node src/visualization/TOMtoRAW.ts",
+    "make_obj": "NODE_OPTIONS='--max-old-space-size=4096' VERBOSE=true ts-node src/visualization/MakeOBJ.ts",
+    "unfold_obj": "NODE_OPTIONS='--max-old-space-size=4096' VERBOSE=true ts-node src/visualization/UnfoldOBJ.ts",
+    "shim": "NODE_OPTIONS='--max-old-space-size=4096' VERBOSE=true ts-node src/visualization/temp/DataShim.ts"
+  },
+  "author": {
+    "name": "Unlocking History",
+    "url": "https://github.com/UnlockingHistory"
+  },
+  "contributors": [
+    {
+      "name": "Amanda Ghassaei",
+      "url": "http://www.amandaghassaei.com"
+    },
+    {
+      "name": "Holly Jackson",
+      "url": "http://holly-jackson.com"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@penrose/linear-algebra": "^1.0.1",
+    "bmp-js": "^0.1.0",
+    "del": "^6.0.0",
+    "earcut": "^2.2.2",
+    "minimize-golden-section-1d": "^3.0.0",
+    "node-opencl": "^0.4.5",
+    "three": "^0.116.1"
+  },
+  "devDependencies": {
+    "@types/earcut": "^2.1.1",
+    "@types/jasmine": "^3.5.10",
+    "@types/node": "^14.0.1",
+    "jasmine": "^3.5.0",
+    "jasmine-ts": "^0.3.0",
+    "ts-essentials": "^6.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.2"
+  }
+}
