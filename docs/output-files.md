@@ -2,7 +2,7 @@
 
 This document describes the intermediate files and final results that are output from the virtual unfolding pipeline currently.  We are using two different file formats to store large arrays of intermediate data in this pipeline:
 
-- .tom files represent 3D data.  We are loosely basing this file-structure off the original tom data format (more info [here](/docs/tom-header.md)), but we have extended it to be able to store many different type of data beyond uint8 (int32, float32) and have also added the ability to store high dimensional data (e.g. a 3D vector of float32 for each voxel).  These extra abilities are marked by some custom header markers, which we check for in the BufferedTomData classes (found in src/common/).
+- .tom files represent 3D data.  We are loosely basing this file-structure off the original tom data format (more info [here](/docs/tom.md)), but we have extended it to be able to store many different type of data beyond uint8 (int32, float32) and have also added the ability to store high dimensional data (e.g. a 3D vector of float32 for each voxel).  These extra abilities are marked by some custom header markers, which we check for in the BufferedTomData classes (found in [/src/common/](/src/common/)).
 - .bin files represent 1D data.  Once we have computed a set of points and created a mesh from the 3D tomography data, it is useful (from a space-management perspective) to store 1D lists of indexed data, since most voxels in a given scan will contain air.  These files can also represent many data types (uint8, float32, int32) and can have grouped high-dimensional data (e.g. 3D vectors).
 
 Assuming we are processing a file called FILENAME.tom, by default the script `npm start` will look for this file in the `data/` folder.

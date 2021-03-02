@@ -1,4 +1,4 @@
-# tom header
+# tom file format
 
 The TOM file format is used by the MuCAT series of XMT scanners at QMUL. Tom files contain a 512 byte header as specified in the [tomheader.h file](https://github.com/g7uvw/TomHeader/blob/main/tomheader.h). The TOM format is supported by Drishti (https://github.com/nci/drishti) and TomView (http://qmxmt.com/scans/Tomview/).  We will be releasing a web-based viewer soon as well.
 
@@ -6,7 +6,7 @@ We have adapted the tom format a bit to fit our needs and store other data types
 
 Here are the important points:
 
-- The total lengths of the header is 512 bytes.
+- The total length of the header is 512 bytes.
 - The 3D data stored in the tom file is ordered in groups of z layers.  Within each z layer the data is ordered in groups of y rows.
 - The first three 16bit words of the header (xsize, ysize, zsize) specify the X, Y and Z dimensions of the 3D volume contained in the file.  These are stored as Int16LE.
 
