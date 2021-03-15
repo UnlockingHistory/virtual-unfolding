@@ -1,5 +1,7 @@
 # Virtual Unfolding
 
+![unfolding sequence of letterpacket](/docs/imgs/unfolding-sequence.jpg)
+
 This codebase for the "virtual unfolding" computational pipeline described in the article: [“Unlocking history through automated virtual unfolding of sealed documents imaged by X-ray microtomography."](https://www.nature.com/articles/s41467-021-21326-w)
 
 This code was written by [Amanda Ghassaei](http://amandaghassaei.com/) and [Holly Jackson](http://holly-jackson.com/) and supervised by [Erik Demaine](https://erikdemaine.org/).  This work was done in collaboration with the Unlocking History team: [Jana Dambrogio](http://www.janadambrogio.com/), [Daniel Starza Smith](https://www.kcl.ac.uk/people/dr-daniel-starza-smith), [Martin Demaine](http://martindemaine.org/), [Graham Davis](https://www.qmul.ac.uk/dentistry/people/profiles/grahamdavis.html), [David Mills](http://webshed.org/wiki/About_Me), [Rebekah Ahrendt](https://uu.academia.edu/RebekahAhrendt), [Nadine Akkerman](https://nadineakkerman.com/), [David van der Linden](https://www.dcvanderlinden.com/), and [many others](http://letterlocking.org/team).
