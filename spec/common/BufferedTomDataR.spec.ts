@@ -1,4 +1,4 @@
-// import BufferedTomDataR from '../../src/common/BufferedTomDataR';
+// import { BufferedTomDataR } from '../../src/common/BufferedTomDataR';
 // import { Vector3 } from 'three';
 // import * as fs from 'fs';
 // import { BUFFER_WINDOW_SIZE } from '../../src/common/Defaults';

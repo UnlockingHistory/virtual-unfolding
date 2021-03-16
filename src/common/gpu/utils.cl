@@ -70,31 +70,31 @@ static float getValFromIndex3D_ZeroBoundary(const int3 index3D, __global __read_
     return data[index3D.z * size[0] * size[1] + index3D.y * size[0] + index3D.x];
 }
 
-static float getValFromIndex3D_NearestBoundary(const int3 index3D, __global __read_only float *data, __global __read_only int *size) {
-	// Get nearest index on boundary.
-	int x = index3D.x;
-	int y = index3D.y;
-	int z = index3D.z;
-    if (x < 0) {
-        x = 0;
-    }
-    if (y < 0) {
-        y = 0;
-    }
-    if (z < 0) {
-        z = 0;
-    }
-    if (x >= size[0]) {
-        x = size[0] - 1;
-    }
-    if (y >= size[1]) {
-        y = size[1] - 1;
-    }
-    if (z >= size[2]) {
-        z = size[2] - 1;
-    }
-    return data[z * size[0] * size[1] + y * size[0] + x];
-}
+// static float getValFromIndex3D_NearestBoundary(const int3 index3D, __global __read_only float *data, __global __read_only int *size) {
+// 	// Get nearest index on boundary.
+// 	int x = index3D.x;
+// 	int y = index3D.y;
+// 	int z = index3D.z;
+//     if (x < 0) {
+//         x = 0;
+//     }
+//     if (y < 0) {
+//         y = 0;
+//     }
+//     if (z < 0) {
+//         z = 0;
+//     }
+//     if (x >= size[0]) {
+//         x = size[0] - 1;
+//     }
+//     if (y >= size[1]) {
+//         y = size[1] - 1;
+//     }
+//     if (z >= size[2]) {
+//         z = size[2] - 1;
+//     }
+//     return data[z * size[0] * size[1] + y * size[0] + x];
+// }
 
 static float trilinearInterpolation(const float3 position, __global __read_only float *data, __global __read_only int *size) {
     const float3 mid = round(position);

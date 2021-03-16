@@ -19,7 +19,7 @@ export class BufferedTomDataR {
 	type: Readonly<TomType>;
 	protected useNull: Readonly<boolean>;
 	numElementsPerVoxel: Readonly<number>;
-	protected windowSize: Readonly<number>;
+	windowSize: Readonly<number>;
 	protected buffer: Buffer;
 	protected file: Readonly<number>;
 	protected data: TomTypedArray;
