@@ -52,9 +52,6 @@ export default function run(
 	gpuHelper.setBufferArgument('normalsCalc', 5, 'rxy');
 	gpuHelper.setBufferArgument('normalsCalc', 6, 'ryz');
 	gpuHelper.setBufferArgument('normalsCalc', 7, 'rxz');
-	
-	// Temp arrays for moving data around.
-	const tempArray1x = new Float32Array(LAYER_LENGTH);
 
     for (let z = 0; z < fileParams.DIMENSIONS.z; z++) {
         // Put partials on GPU.

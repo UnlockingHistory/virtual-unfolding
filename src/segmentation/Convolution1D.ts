@@ -2,8 +2,6 @@ import GPUHelper from '../common/GPUHelper';
 import { Vector3 } from 'three';
 import { Axis } from '../common/types';
 import { getTomDimensions } from '../common/io';
-import { performance } from 'perf_hooks';
-import { logTime } from '../common/utils';
 
 export default class Convolution1D {
 	private length = 0;
