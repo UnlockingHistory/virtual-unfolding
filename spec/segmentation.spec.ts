@@ -6,7 +6,7 @@ import { makeG0Kernel, makeG1Kernel } from '../src/common/kernels';
 import { Vector3 } from 'three';
 import { DEVICE_NUM } from '../src/common/Defaults';
 import { index3Dto1D, addDirectoryIfNeeded } from '../src/common/utils';
-import { getTomDimensions, readTom } from '../src/common/io';
+import { copyTom, getTomDimensions, readTom } from '../src/common/io';
 import { Axis } from '../src/common/types';
 
 const DATA_PATH = 'spec/data/letter2_curve/';
@@ -28,6 +28,9 @@ describe('segmentation', () => {
 		
 		// Init gpuHelper.
 		gpuHelper = new GPUHelper(DEVICE_NUM);
+
+		// Make a copy of raw data in OUTPUT_PATH.
+		copyTom(fileParams.DATA_PATH, fileParams.FILENAME, fileParams.OUTPUT_PATH, `${fileParams.FILENAME}_raw`);
 	});
 
 	beforeEach(() => {
@@ -40,19 +43,22 @@ describe('segmentation', () => {
 
 	afterAll(() => {
 		gpuHelper.destroy();
+
+		// Delete raw file.
+		fs.unlinkSync(`${fileParams.OUTPUT_PATH}${FILENAME}_raw.tom`);
 	});
 
 	it('clips raw data', () => {
 		// Check errors.
 		// CLIP_VAL must be a uint8.
-		expect(() => clipRawData(gpuHelper, fileParams, 400)).toThrow(new Error('Invalid type for compile arg CLIP_VAL: expected uint8, got 400.'));
+		expect(() => clipRawData(gpuHelper, fileParams, { CLIP_VAL: 400 })).toThrow(new Error('Invalid type for compile arg CLIP_VAL: expected uint8, got 400.'));
 		gpuHelper.clear();
-		expect(() => clipRawData(gpuHelper, fileParams, -20)).toThrow(new Error('Invalid type for compile arg CLIP_VAL: expected uint8, got -20.'));
+		expect(() => clipRawData(gpuHelper, fileParams, { CLIP_VAL: -20 })).toThrow(new Error('Invalid type for compile arg CLIP_VAL: expected uint8, got -20.'));
 		gpuHelper.clear();
 
 		// Check that clipping works as expected.
 		const CLIP_VAL = 20;
-		clipRawData(gpuHelper, fileParams, CLIP_VAL);
+		clipRawData(gpuHelper, fileParams, { CLIP_VAL });
 		const tomData = readTom(fileParams.DATA_PATH, FILENAME);
 		const clippedData = readTom(fileParams.OUTPUT_PATH, `${FILENAME}_clipped`);
 		expect(clippedData.length).toEqual(tomData.length);
@@ -65,7 +71,6 @@ describe('segmentation', () => {
 		}
 
 		// Delete File.
-		fs.unlinkSync(`${fileParams.OUTPUT_PATH}${FILENAME}_raw.tom`);
 		fs.unlinkSync(`${fileParams.OUTPUT_PATH}${FILENAME}_clipped.tom`);
 	});
 
