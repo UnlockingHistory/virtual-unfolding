@@ -52,7 +52,7 @@ __kernel void convolve1D(
     }
 
     // Compute convolution.
-    float convolution = convolutionKernel[kernelSize] * input[i];
+    float convolution = convolutionKernel[kernelSize] * input[index3D.z * size[0] * size[1] + index3D.y * size[0] + index3D.x - inputOffset];
     for (int j = 1; j <= kernelSize; j++) {
         convolution += convolutionKernel[kernelSize + j]
 			* getValFromIndex3D_NearestBoundary(index3D + offsetVector * j, input, size, inputOffset);

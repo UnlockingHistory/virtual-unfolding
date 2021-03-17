@@ -29,7 +29,7 @@ export default class Convolution1D {
 		gpuHelper.createGPUBuffer('size', Int32Array.from(dimensions.toArray()), 'int*', 'read', 3, true);
 	
 		// Cast input to Float32Array.
-		gpuHelper.createGPUBuffer('input', null, 'float*', 'read', dimensions.x * dimensions.y * WINDOW_SIZE, true);
+		gpuHelper.createGPUBuffer('input', null, 'float*', 'read', this.input.getData(0).length, true);
 
 		// Modify output buffer size if needed.
 		gpuHelper.createGPUBuffer('output', null, 'float*', 'write', dimensions.x * dimensions.y, true);
