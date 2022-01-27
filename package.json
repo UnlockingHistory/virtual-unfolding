@@ -44,7 +44,7 @@
     "earcut": "^2.2.2",
     "minimize-golden-section-1d": "^3.0.0",
     "node-opencl": "^0.4.5",
-    "three": "^0.116.1"
+    "three": "^0.137.0"
   },
   "devDependencies": {
     "@types/earcut": "^2.1.1",
