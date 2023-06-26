@@ -66,9 +66,26 @@ export default function run(
         gpuHelper.runProgram('normalsCalc', LAYER_LENGTH);
 
         // Save results.
+		
         gpuHelper.copyDataFromGPUBuffer('normals', normals.getData() as GPUTypedArray);
+		gpuHelper.copyDataFromGPUBuffer('responses', responses.getData() as GPUTypedArray);
+
+		const normalsArray = normals.getData() as GPUTypedArray;
+		const responsesArray = responses.getData() as GPUTypedArray;
+		// TODO: sometimes normals calc is returning NaN.  This is a temporary fix.
+		for (let i = 0, len = responsesArray.length; i < len; i++) {
+			if (isNaN(responsesArray[i]) || isNaN(normalsArray[3 * i]) || isNaN(normalsArray[3 * i + 1]) || isNaN(normalsArray[3 * i + 2])) {
+				normalsArray[3 * i] = 1;
+				normalsArray[3 * i + 1] = 0;
+				normalsArray[3 * i + 2] = 0;
+				responsesArray[i] = 0;
+				const x = i % fileParams.DIMENSIONS.x;
+				const y = Math.floor(i / fileParams.DIMENSIONS.x) % fileParams.DIMENSIONS.y;
+				console.log(`Caught NaN in normals/responses array at index (${x}, ${y}, ${z}), setting to zero (TODO: fix this in GPU code).`);
+			}
+		}
+
         normals.writeLayer(z);
-        gpuHelper.copyDataFromGPUBuffer('responses', responses.getData() as GPUTypedArray);
         responses.writeLayer(z);
     }
 

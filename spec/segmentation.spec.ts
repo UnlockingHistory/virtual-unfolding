@@ -77,7 +77,7 @@ describe('segmentation', () => {
 	it('convolves a kernel with raw data', () => {
 		const convolution1D = new Convolution1D(gpuHelper);
 		// Check errors.
-		expect(() => convolution1D.setInput(DATA_PATH, 'bad_filename', gpuHelper)).toThrow(new Error(`ENOENT: no such file or directory, open '${DATA_PATH}bad_filename.tom'`));
+		expect(() => convolution1D.setInput(DATA_PATH, 'bad_filename', gpuHelper, 10)).toThrow(new Error(`ENOENT: no such file or directory, open '${DATA_PATH}bad_filename.tom'`));
 
 		const indicesToTest = [
 			// Corners.
@@ -98,8 +98,8 @@ describe('segmentation', () => {
 
 		// Convolve with g0 and g1 kernels.
 		const raw = readTom(DATA_PATH, FILENAME) as Uint8Array;
-		convolution1D.setInput(DATA_PATH, FILENAME, gpuHelper);
 		const g0Kernel = makeG0Kernel(0.7);
+		convolution1D.setInput(DATA_PATH, FILENAME, gpuHelper, g0Kernel.length);
 		convolution1D.convolve1D(Axis.X, g0Kernel, gpuHelper, OUTPUT_PATH, FILENAME + 'g0x');
 		const g0xConv = readTom(OUTPUT_PATH, FILENAME + 'g0x');
 		convolution1D.convolve1D(Axis.Y, g0Kernel, gpuHelper, OUTPUT_PATH, FILENAME + 'g0y');

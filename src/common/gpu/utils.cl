@@ -70,31 +70,31 @@ static float getValFromIndex3D_ZeroBoundary(const int3 index3D, __global __read_
     return data[index3D.z * size[0] * size[1] + index3D.y * size[0] + index3D.x];
 }
 
-static float getValFromIndex3D_NearestBoundary(const int3 index3D, __global __read_only float *data, __global __read_only int *size) {
-	// Get nearest index on boundary.
-	int x = index3D.x;
-	int y = index3D.y;
-	int z = index3D.z;
-    if (x < 0) {
-        x = 0;
-    }
-    if (y < 0) {
-        y = 0;
-    }
-    if (z < 0) {
-        z = 0;
-    }
-    if (x >= size[0]) {
-        x = size[0] - 1;
-    }
-    if (y >= size[1]) {
-        y = size[1] - 1;
-    }
-    if (z >= size[2]) {
-        z = size[2] - 1;
-    }
-    return data[z * size[0] * size[1] + y * size[0] + x];
-}
+// static float getValFromIndex3D_NearestBoundary(const int3 index3D, __global __read_only float *data, __global __read_only int *size) {
+// 	// Get nearest index on boundary.
+// 	int x = index3D.x;
+// 	int y = index3D.y;
+// 	int z = index3D.z;
+//     if (x < 0) {
+//         x = 0;
+//     }
+//     if (y < 0) {
+//         y = 0;
+//     }
+//     if (z < 0) {
+//         z = 0;
+//     }
+//     if (x >= size[0]) {
+//         x = size[0] - 1;
+//     }
+//     if (y >= size[1]) {
+//         y = size[1] - 1;
+//     }
+//     if (z >= size[2]) {
+//         z = size[2] - 1;
+//     }
+//     return data[z * size[0] * size[1] + y * size[0] + x];
+// }
 
 static float trilinearInterpolation(const float3 position, __global __read_only float *data, __global __read_only int *size) {
     const float3 mid = round(position);
@@ -219,6 +219,7 @@ static float3 applyQuaternion(const float3 vector, const float4 quaternion) {
 }
 
 static float3 calcBarycentricCoords(const float2 subPixelPosition2D, const float2 p1, const float2 p2, const float2 p3) {
+    // TODO: use vec math here.
     const float2 v0 = {p2.x - p1.x, p2.y - p1.y};
     const float2 v1 = {p3.x - p1.x, p3.y - p1.y};
     const float2 v2 = {subPixelPosition2D.x - p1.x, subPixelPosition2D.y - p1.y};
