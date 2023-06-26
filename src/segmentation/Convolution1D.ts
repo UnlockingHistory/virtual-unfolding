@@ -4,6 +4,7 @@ import { Axis, GPUTypedArray } from '../common/types';
 import { getTomDimensions } from '../common/io';
 import { BufferedTomDataW } from '../common/BufferedTomDataW';
 import { BufferedTomDataR } from '../common/BufferedTomDataR';
+import { normalize } from 'path';
 
 export default class Convolution1D {
 	private dimensions = new Vector3();
@@ -80,12 +81,28 @@ export default class Convolution1D {
 			} else {
 				gpuHelper.copyDataToGPUBuffer('input', data as GPUTypedArray);
 			}
+			// for (let i = 0; i < data.length; i++) {
+			// 	if (isNaN(data[i])) {
+			// 		const x = Math.floor(i) % this.dimensions.x;
+			// 		const y = Math.floor(i / this.dimensions.x) % this.dimensions.y;
+			// 		throw new Error(`NaN value in input data for file ${filename}, at index x: ${x}, y: ${y}, z: ${z}.`);
+			// 	}
+			// }
 
 			// Run program.
 			gpuHelper.runProgram('convolve1D', LAYER_LENGTH);
 	
 			// Save results.
+			
 			gpuHelper.copyDataFromGPUBuffer('output', output.getData() as GPUTypedArray);
+			// const outputArray = output.getData() as GPUTypedArray;
+			// for (let i = 0, len = outputArray.length; i < len; i++) {
+			// 	if (isNaN(outputArray[i])) {
+			// 		const x = Math.floor(i) % this.dimensions.x;
+			// 		const y = Math.floor(i / this.dimensions.x) % this.dimensions.y;
+			// 		throw new Error(`NaN value in output data for file ${filename}, at index x: ${x}, y: ${y}, z: ${z}.`);
+			// 	}
+			// }
 			output.writeLayer(z);
 		}
 

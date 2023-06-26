@@ -413,6 +413,67 @@ export function copyTom(inputPath: string, inputFilename: string, outputPath: st
 	closeSync(outputFile);
 }
 
+export function copyTomAsFloat32(inputPath: string, inputFilename: string, outputPath: string, outputFilename: string) {
+
+	// Get metadata.
+	const type = getTomDataType(inputPath, inputFilename);
+	const numElements = getTomNumElements(inputPath, inputFilename);
+	const useNull = getTomUseNull(inputPath, inputFilename);
+	const dimensions = getTomDimensions(inputPath, inputFilename);
+
+	const fullPath = `${outputPath}${outputFilename}.tom`;
+
+	// Open files.
+	let inputFile = openSync(`${inputPath}${inputFilename}.tom`, 'r');
+	let outputFile = openSync(fullPath, 'w');
+
+	// Write header.
+	writeTomHeaderToBuffer(fullPath, tomHeaderBuffer, 'float32', dimensions, numElements, useNull);
+	writeSync(outputFile, tomHeaderBuffer);
+
+	// Init a buffer to hold a single layer of data.
+	const layerBufferInput = Buffer.alloc(dataSizeForType(type) * numElements * dimensions.x * dimensions.y);
+	const layerBufferOutput = Buffer.alloc(dataSizeForType('float32') * numElements * dimensions.x * dimensions.y);
+	// Loop through z layers and write each layer.
+	for (let z = 0; z < dimensions.z; z++) {
+		readSync(inputFile, layerBufferInput, 0, layerBufferInput.length, TOM_HEADER_NUM_BYTES + z * layerBufferInput.length);
+		if (type === 'float32') {
+			writeSync(outputFile, layerBufferInput, 0, layerBufferInput.length, TOM_HEADER_NUM_BYTES + z * layerBufferInput.length);
+			continue;
+		}
+		// Translate layerBufferInput to layerBufferOutput.
+		for (let i = 0; i < numElements * dimensions.x * dimensions.y; i++) {
+			let val;
+			const position = i * dataSizeForType(type)
+			switch (type) {
+				case 'uint8':
+					val = layerBufferInput[i];
+					break;
+				case 'uint32':
+					val = layerBufferInput.readUInt32LE(position);
+					break;
+				case 'int32':
+					val = layerBufferInput.readInt32LE(position);
+					break;
+				// case 'uint16':
+				// 	val = layerBufferInput.readUInt16LE(position);
+				// 	break;
+				// case 'int16':
+				// 	val = layerBufferInput.readInt16LE(position);
+				// 	break;
+				default:
+					throw new Error(`Error saving ${fullPath}. Unknown type ${type}.`);
+			}
+			layerBufferOutput.writeFloatLE(val, i * dataSizeForType('float32'));
+		}
+		writeSync(outputFile, layerBufferOutput, 0, layerBufferOutput.length, TOM_HEADER_NUM_BYTES + z * layerBufferOutput.length);
+	}
+
+	// Close file.
+	closeSync(inputFile);
+	closeSync(outputFile);
+}
+
 export function writeTomHeaderToBuffer(fullPath: string, buffer: Buffer, type: TomType, dimensions: Vector3, numElements = 1, useNull = false) {
 	// Check that numElements is a valid number.
 	if (numElements > MAX_NUM_ELEMENTS) {

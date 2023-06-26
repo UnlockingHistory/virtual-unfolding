@@ -30,5 +30,5 @@ __kernel void orientedBlur(
         val += offsetVal * convolutionKernel[j + BLUR_KERNEL_DIM];
     }
 
-    output[i_global] = val;
+    output[i] = val;
 }

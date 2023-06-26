@@ -1,6 +1,11 @@
 #import "src/common/gpu/utils.cl"
 
-static float getValFromIndex3D_NearestBoundary(const int3 index3D, __global __read_only float *data, __global __read_only int *size, const int dataOffset) {
+static float getValFromIndex3D_NearestBoundary(
+	const int3 index3D,
+	__global __read_only float *data,
+	__global __read_only int *size,
+	const int dataOffset
+) {
 	// Get nearest index on boundary.
 	int x = index3D.x;
 	int y = index3D.y;

@@ -219,6 +219,7 @@ static float3 applyQuaternion(const float3 vector, const float4 quaternion) {
 }
 
 static float3 calcBarycentricCoords(const float2 subPixelPosition2D, const float2 p1, const float2 p2, const float2 p3) {
+    // TODO: use vec math here.
     const float2 v0 = {p2.x - p1.x, p2.y - p1.y};
     const float2 v1 = {p3.x - p1.x, p3.y - p1.y};
     const float2 v2 = {subPixelPosition2D.x - p1.x, subPixelPosition2D.y - p1.y};

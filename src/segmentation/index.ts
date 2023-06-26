@@ -40,27 +40,27 @@ export default function run(fileParams: FileParams, segmentationParams: Segmenta
 	
 	const startTime = performance.now();
 
-	// Make a copy of raw data in OUTPUT_PATH.
-	copyTom(fileParams.DATA_PATH, fileParams.FILENAME, fileParams.OUTPUT_PATH, `${fileParams.FILENAME}_raw`);
+	// // Make a copy of raw data in OUTPUT_PATH.
+	// copyTom(fileParams.DATA_PATH, fileParams.FILENAME, fileParams.OUTPUT_PATH, `${fileParams.FILENAME}_raw`);
 
-    // Create a copy of raw data clipped to globals.inputClipVal.
-    // This is used for calculating response in normals relaxation.
-    clipRawData(
-		gpuHelper,
-		fileParams, 
-		{ 
-			CLIP_VAL,
-		},
-	);
-    // Perform 3D gauss convolutions on raw data.
-    gaussConvolutions(
-		gpuHelper,
-		fileParams,
-		{ 
-			GAUSS_KERNEL_SIGMA,
-			NORMAL_RELAX_GAUSS_SCALE,
-		},
-	);
+    // // Create a copy of raw data clipped to globals.inputClipVal.
+    // // This is used for calculating response in normals relaxation.
+    // clipRawData(
+	// 	gpuHelper,
+	// 	fileParams, 
+	// 	{ 
+	// 		CLIP_VAL,
+	// 	},
+	// );
+    // // Perform 3D gauss convolutions on raw data.
+    // gaussConvolutions(
+	// 	gpuHelper,
+	// 	fileParams,
+	// 	{ 
+	// 		GAUSS_KERNEL_SIGMA,
+	// 		NORMAL_RELAX_GAUSS_SCALE,
+	// 	},
+	// );
     // Calculate normal vector for each voxel.
 	normalsCalc(
 		gpuHelper,
